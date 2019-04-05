@@ -89,7 +89,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前提条件"><span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装前准备"><span class="toc-text">安装前准备</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前提条件"><span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装前准备"><span class="toc-text">安装前准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装步骤介绍"><span class="toc-text">安装步骤介绍</span></a></li></ol>
 </div>
     
 </div>
@@ -132,8 +132,8 @@
     </div>
     <div class="post-content ">
         <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>​    本环境介绍使用二进制的方式部署 <code>kubernetes</code> 集群的所有步骤，其中高可用部署<code>Etcd</code>，以便让初学者更好的理解K8s的鉴权、系统各组件的交互原理等，进而能快速解决实际问题。若想快速部署一个k8s集群可使用minikube或者kubeadm。</p>
-<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>1、科学上网</p>
-<p>2、节点配置情况：</p>
+<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>​    1、科学上网</p>
+<p>​    2、节点配置情况：</p>
 <table>
 <thead>
 <tr>
@@ -160,10 +160,22 @@
 </tr>
 </tbody>
 </table>
-<p>操作系统版本：CentOS Linux release 7.5.1804 (Core),</p>
-<h3 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h3><p>1、在所有节点上安装Docker CE ，安装方式请参考<a href="https://docs.docker.com/install/linux/docker-ce/centos/#prerequisites" target="_blank" rel="noopener">Get Docker CE for CentOS</a></p>
-<p>2、关闭所有节点的SELinux，修改<code>/etc/selinux/config</code>文件中设置SELINUX=disabled ，然后重启服务器。</p>
-<p>3、关闭交换分区，swapoff -a </p>
+<p>​    操作系统版本：CentOS Linux release 7.5.1804 (Core),</p>
+<h3 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h3><p>​    1、在所有节点上安装Docker CE ，安装方式请参考<a href="https://docs.docker.com/install/linux/docker-ce/centos/#prerequisites" target="_blank" rel="noopener">Get Docker CE for CentOS</a></p>
+<p>​    2、关闭所有节点的SELinux，修改<code>/etc/selinux/config</code>文件中设置SELINUX=disabled ，然后重启服务器。</p>
+<p>​    3、关闭交换分区，swapoff -a </p>
+<p>​    4、关闭防火墙，systemctl stop firewalld &amp;&amp; systemctl disable firewalld</p>
+<h3 id="安装步骤介绍"><a href="#安装步骤介绍" class="headerlink" title="安装步骤介绍"></a>安装步骤介绍</h3><p>0、基于CA根证书签名的双向数字证书认证方式介绍</p>
+<p>1、创建TLS证书和密钥</p>
+<p>2、安装bukectl命令行工具</p>
+<p>3、创建kubeconfig文件</p>
+<p>4、搭建高可用Etcd集群</p>
+<p>5、部署master节点</p>
+<p>6、安装flannel网络插件</p>
+<p>7、部署node节点</p>
+<p>8、安装kebedns</p>
+<p>各种插件选装</p>
+<p>未完待续。。。</p>
 
         
         <br>

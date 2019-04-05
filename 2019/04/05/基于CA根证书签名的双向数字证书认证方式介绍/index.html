@@ -11,7 +11,7 @@
 
     <title>
         
-        
+        基于CA根证书签名的双向数字证书认证方式介绍 - undefined
         
     </title>
 
@@ -65,7 +65,7 @@
                     <span>标签</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
@@ -87,6 +87,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
     
 </div>
 
@@ -113,65 +117,52 @@
         
 
 
-<!-- 归档列表 -->
+<div class="post-container">
+    <div class="post-title">
+        基于CA根证书签名的双向数字证书认证方式介绍
+    </div>
 
-<div class="archives-container">
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-05 19:22:59</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#k8s，CA认证" title="k8s，CA认证">k8s，CA认证</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
 
-<div class="one-tag-list">
-                <span class="fa fa-calendar-times-o listing-seperator" id="2019">
-                    <span class="tag-text">2019</span>
-                </span>
-    <ul>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li>
-            <span>04-05</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2019/04/05/基于CA根证书签名的双向数字证书认证方式介绍/">
-                        <span>
-                            基于CA根证书签名的双向数字证书认证方式介绍
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li>
-            <span>04-05</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2019/04/05/二进制部署Etcd高可用版Kubernetes/">
-                        <span>
-                            二进制部署Etcd高可用版Kubernetes
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
-        <!-- <li class="listing-item">
-        <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-        <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li> -->
-        <li>
-            <span>03-10</span>
-            <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            <a href="/2019/03/10/hello-world/">
-                        <span>
-                            Hello World
-                        </span>
-            </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </li>
-        
+    </div>
+    <div class="post-content ">
+        <p>&emsp;&emsp;Kubernetes集群中所有资源的访问方式和变更都是通过Kubernetes API Server的REST API来实现的，所以集群安全的关键点就在于如何识别并认证客户端身份(Authentication)，以及随后访问权限的授权(Authorization)这两个关键问题。</p>
+<p>&emsp;&emsp;Kubernetes一共提供了3中级别的客户端身份认证方式。</p>
+<ul>
+<li>HTTPS证书认证：基于CA根证书签名的双向数字证书认证方式介绍</li>
+<li>HTTP Token认证：通过Token来识别合法用户</li>
+<li>HTTP Base认证：通过用户名和密码认证</li>
+</ul>
+<p>&emsp;本次搭建使用的是CA认证，相比于其余二中更加可靠，但是也更加难于理解。</p>
+<p>&emsp;首先需要有一个CA证书，CA是PKI系统中通信双方都信任的实体，作为可信第三方存在(TTP)。CA首先必须让用户信任，并且让能信任者追究自己的责任。CA主要通过证书证实他人的公钥信息，证书上也有CA的签名。也正是因为CA承担责任的承诺，被称为可信第三方。通常情况下，CA与用户是相互独立的，CA作为服务提供方，也可能会因为数据有误而给用户带来损失。在证书中绑定了公钥数据和拥有用户的相关身份信息，并带有CA的数字签名，也包含了CA的名称信息。</p>
+<p>&emsp;CA涉及到的概念比较多，比如根证书、自签名证书、密钥、私钥等。下面主要写SSL协议的流程，以便更好的理解CA认证和Kubernetes CA认证。</p>
+<p>&emsp;关于SSL(Secure Socket Laye)，首先举个例子。我有一个箱子，一把锁和一把钥匙，我把箱子和开着的锁可以给任何需要给我写信的人，他写了信放箱子里，锁上，然后传递回我手上的途中谁都打不开箱子，只有我可以用原来的钥匙打开，这就是SSL，公钥，私钥传递加密消息的方式。</p>
+<p>&emsp;推荐一篇不错的文章，《<strong><a href="http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/x64.html" target="_blank" rel="noopener">SSL Certificates HOWTO</a></strong>》，其中介绍了详细介绍了SSL的具体流程，以及对公钥、私钥、加密、证书等的相关解释。</p>
+<p>&emsp;其中CA认证可大致理解为一下几个步骤:</p>
+<p>1、HTTPS通信的双方向CA申请证书，CA机构下发根证书、服务端证书以及私钥给申请者。</p>
+<p>2、客户端向服务器端发起请求，服务端下发服务端证书给客户端。客户端接收到证书后，通过私钥解密证书，</p>
 
-    </ul>
-</div>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
 
+        <div id="lv-container">
+        </div>
+
+    </div>
 </div>
 
     </div>
@@ -220,7 +211,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
