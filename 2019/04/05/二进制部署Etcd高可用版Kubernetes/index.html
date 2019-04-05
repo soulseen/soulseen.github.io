@@ -11,7 +11,7 @@
 
     <title>
         
-        
+        二进制部署Etcd高可用版Kubernetes - undefined
         
     </title>
 
@@ -53,7 +53,7 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li class="active">
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
@@ -88,6 +88,10 @@
         </ul>
     </div>
     
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#说明"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前提条件"><span class="toc-text">前提条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装前准备"><span class="toc-text">安装前准备</span></a></li></ol>
+</div>
+    
 </div>
 
 
@@ -111,41 +115,67 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-preview-container" style="min-height: 720px">
-    
-    <div class="post-preview">
-        <div class="post-time">2019-04-05</div>
-        <div class="post-info">
-            <a href="/2019/04/05/二进制部署Etcd高可用版Kubernetes/">
-                <h3>
-                    二进制部署Etcd高可用版Kubernetes
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
+
+
+<div class="post-container">
+    <div class="post-title">
+        二进制部署Etcd高可用版Kubernetes
     </div>
-    
-    <div class="post-preview">
-        <div class="post-time">2019-03-10</div>
-        <div class="post-info">
-            <a href="/2019/03/10/hello-world/">
-                <h3>
-                    Hello World
-                </h3>
-            </a>
-            <p>
-                
-            </p>
-        </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-04-05 16:00:56</span></span>
+        
+        
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
     </div>
-    
+    <div class="post-content ">
+        <h3 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h3><p>​    本环境介绍使用二进制的方式部署 <code>kubernetes</code> 集群的所有步骤，其中高可用部署<code>Etcd</code>，以便让初学者更好的理解K8s的鉴权、系统各组件的交互原理等，进而能快速解决实际问题。若想快速部署一个k8s集群可使用minikube或者kubeadm。</p>
+<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>1、科学上网</p>
+<p>2、节点配置情况：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">node</th>
+<th style="text-align:center">ip</th>
+<th style="text-align:center">cpu/mem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">k8s-1-1(master)</td>
+<td style="text-align:center">192.168.0.19</td>
+<td style="text-align:center">2核4G</td>
+</tr>
+<tr>
+<td style="text-align:center">k8s-1-2(node)</td>
+<td style="text-align:center">192.168.0.20</td>
+<td style="text-align:center">2核4G</td>
+</tr>
+<tr>
+<td style="text-align:center">k8s-1-3(node)</td>
+<td style="text-align:center">192.168.0.3</td>
+<td style="text-align:center">2核4G</td>
+</tr>
+</tbody>
+</table>
+<p>操作系统版本：CentOS Linux release 7.5.1804 (Core),</p>
+<h3 id="安装前准备"><a href="#安装前准备" class="headerlink" title="安装前准备"></a>安装前准备</h3><p>1、在所有节点上安装Docker CE ，安装方式请参考<a href="https://docs.docker.com/install/linux/docker-ce/centos/#prerequisites" target="_blank" rel="noopener">Get Docker CE for CentOS</a></p>
+<p>2、关闭所有节点的SELinux，修改<code>/etc/selinux/config</code>文件中设置SELINUX=disabled ，然后重启服务器。</p>
+<p>3、关闭交换分区，swapoff -a </p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
 </div>
-<ul class="pager">
-    
-    
-</ul>
 
     </div>
 </div>
@@ -193,7 +223,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
