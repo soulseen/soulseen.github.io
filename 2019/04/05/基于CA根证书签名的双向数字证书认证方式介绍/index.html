@@ -56,32 +56,32 @@
             <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
-                    <span>HOME</span>
+                    <span>主页</span>
                 </a>
             </li>
             <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
-                    <span>TAGS</span>
+                    <span>标签</span>
                 </a>
             </li>
             <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
-                    <span>ARCHIVES</span>
+                    <span>存档</span>
                 </a>
             </li>
             <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
-                    <span>ABOUT</span>
+                    <span>关于</span>
                 </a>
             </li>
             
             <li>
                 <a id="search">
                     <i class="iconfont icon-sousuo1"></i>
-                    <span>SEARCH</span>
+                    <span>搜索</span>
                 </a>
             </li>
             
@@ -100,7 +100,7 @@
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
             <input id="search-input">
-            <span id="begin-search">search</span>
+            <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
 
@@ -123,16 +123,16 @@
     </div>
 
     <div class="post-meta">
-        <span class="attr">Post：<span>2019-04-05 19:22:59</span></span>
+        <span class="attr">发布于：<span>2019-04-05 19:22:59</span></span>
         
-        <span class="attr">Tags：/
+        <span class="attr">标签：/
         
         <a class="tag" href="/tags/#k8s，CA认证" title="k8s，CA认证">k8s，CA认证</a>
         <span>/</span>
         
         
         </span>
-        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
 
     </div>
@@ -151,7 +151,10 @@
 <p>&emsp;推荐一篇不错的文章，《<strong><a href="http://www.tldp.org/HOWTO/SSL-Certificates-HOWTO/x64.html" target="_blank" rel="noopener">SSL Certificates HOWTO</a></strong>》，其中介绍了详细介绍了SSL的具体流程，以及对公钥、私钥、加密、证书等的相关解释。</p>
 <p>&emsp;其中CA认证可大致理解为一下几个步骤:</p>
 <p>1、HTTPS通信的双方向CA申请证书，CA机构下发根证书、服务端证书以及私钥给申请者。</p>
-<p>2、客户端向服务器端发起请求，服务端下发服务端证书给客户端。客户端接收到证书后，通过私钥解密证书，</p>
+<p>2、客户端向服务器端发起请求，服务端下发服务端证书给客户端。客户端接收到证书后，通过私钥解密证书，通过解密得到的公钥、服务端域名等信息的校验，如果一致，客户端则认可服务器端。</p>
+<p>3、客户端发送客户端证书给服务器端，服务端收到证书后，同样对其解密，并获得客户端证书公钥，用其认证证书信息，确认客户端合法。</p>
+<p>4、客户端通过公钥来加密一个随机的对称密钥，并发送该随机密钥到服务器端，服务器端收到后，双方通信的所有内容都通过该随机密钥加密。</p>
+<p>&emsp;在k8s集群中，有一个集群根证书颁发机构(CA)。集群中的组件通常使用CA来验证API server的证书，由API服务器验证kubelet客户端证书等。为了支持这一点，CA证书包被分发到集群中的每个节点，并作为一个secret附加分发到默认service account上。</p>
 
         
         <br>
